@@ -14,8 +14,8 @@ var {
 
 var Button = require('react-native-material-switch');
 
-var example = React.createClass({
-  render: function() {
+class example extends React.Component {
+  render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{'Material Buttons'}</Text>
@@ -52,7 +52,7 @@ var example = React.createClass({
       </View>
     );
   }
-});
+}
 
 var styles = StyleSheet.create({
   container: {

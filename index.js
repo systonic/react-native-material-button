@@ -2,44 +2,43 @@ import React from 'react';
 import { View, Animated, PanResponder } from 'react-native';
 import styles from './styles';
 
-const MaterialButton = React.createClass({
-  getDefaultProps() {
-    return {
-      withRipple: true,
-      withShadow: false,
-      shadowLevel: 1,
-      pressedShadowLevel: 5,
-      shadowColor: '#000',
-      shadowOpacity: 0.4,
-      pressedShadowOpacity: 0.6,
-      animationTime: 600,
+class MaterialButton extends React.Component {
+  static defaultProps = {
+    withRipple: true,
+    withShadow: false,
+    shadowLevel: 1,
+    pressedShadowLevel: 5,
+    shadowColor: '#000',
+    shadowOpacity: 0.4,
+    pressedShadowOpacity: 0.6,
+    animationTime: 600,
 
-      onClick: function() {},
-      onPressIn: function() {},
-      onPressOut: function() {},
+    onClick: function() {},
+    onPressIn: function() {},
+    onPressOut: function() {},
 
-      rippleColor: 'rgba(0,0,0,0.1)',
-      style: {},
-    };
-  },
+    rippleColor: 'rgba(0,0,0,0.1)',
+    style: {},
+  };
 
-  getInitialState() {
-    this.currentLevel = this.props.shadowLevel;
+  constructor(props) {
+    super(props);
+    this.currentLevel = props.shadowLevel;
 
-    return {
+    this.state = {
       radius: new Animated.Value(0),
       opacity: new Animated.Value(1),
-      shadowRadius: new Animated.Value(this.props.shadowLevel),
-      shadowOpacity: new Animated.Value(this.props.shadowOpacity),
-      shadowOffset: {height: this.props.shadowLevel, width: 0},
+      shadowRadius: new Animated.Value(props.shadowLevel),
+      shadowOpacity: new Animated.Value(props.shadowOpacity),
+      shadowOffset: {height: props.shadowLevel, width: 0},
       width: 0,
       height: 0,
       fromTop: 0,
       fromLeft: 0,
     };
-  },
+  }
 
-  currentLevel: 0,
+  currentLevel = 0;
 
   componentWillMount() {
     this.panResponder = PanResponder.create({
@@ -75,15 +74,15 @@ const MaterialButton = React.createClass({
         this.props.onPressIn();
       },
     });
-  },
+  }
 
   componentWillUnmount() {
     if (this.liftInterval) {
       clearInterval(this.liftInterval);
     }
-  },
+  }
 
-  liftUp() {
+  liftUp = () => {
     Animated.parallel([
       Animated.timing(this.state.shadowRadius, {
         toValue: this.props.topShadowLevel,
@@ -95,9 +94,9 @@ const MaterialButton = React.createClass({
       })
     ]).start();
     this.slideShadowTo(this.props.pressedShadowLevel);
-  },
+  };
 
-  liftDown() {
+  liftDown = () => {
     Animated.parallel([
       Animated.timing(this.state.shadowRadius, {
         toValue: 1,
@@ -109,9 +108,9 @@ const MaterialButton = React.createClass({
       })
     ]).start();
     this.slideShadowTo(this.props.shadowLevel);
-  },
+  };
 
-  slideShadowTo(h) {
+  slideShadowTo = (h) => {
     clearInterval(this.liftInterval);
     var step = h == this.currentLevel ? 0 : (h > this.currentLevel ? 1 : -1);
     this.liftInterval = setInterval(() => {
@@ -119,9 +118,9 @@ const MaterialButton = React.createClass({
       this.setState({shadowOffset: {height: this.currentLevel, width: 0}});
       if ((step > 0 && this.currentLevel >= h) || (step < 0 && this.currentLevel <= h)) clearInterval(this.liftInterval);
     }, 100);
-  },
+  };
 
-  rippleAnimation(x,y) {
+  rippleAnimation = (x, y) => {
     this.setState({
       fromTop: y,
       fromLeft: x
@@ -132,17 +131,17 @@ const MaterialButton = React.createClass({
         duration: this.animationTime,
       }),
     ]).start();
-  },
+  };
 
-  startRipple() {
+  startRipple = () => {
     this.rippleInterval = setInterval(() => {
       this.shouldHide = true;
       clearInterval(this.rippleInterval);
       this.hideRipple();
     }, this.props.animationTime);
-  },
+  };
 
-  hideRipple() {
+  hideRipple = () => {
     if (this.shouldHide && !this.isTouching) {
       Animated.sequence([
         Animated.timing(this.state.opacity, {
@@ -161,9 +160,9 @@ const MaterialButton = React.createClass({
         ])
       ]).start();
     }
-  },
+  };
 
-  onLayout(e) {
+  onLayout = (e) => {
     var { x, y, width, height } = e.nativeEvent.layout;
     this.setState({
       top: y,
@@ -172,9 +171,9 @@ const MaterialButton = React.createClass({
       height: height,
       maxScale: width + height,  // TODO: optimize value
     });
-  },
+  };
 
-  renderShadow() {
+  renderShadow = () => {
     if (!this.props.withShadow) return {};
 
     return {
@@ -183,9 +182,9 @@ const MaterialButton = React.createClass({
       shadowRadius: this.state.shadowRadius,
       shadowOffset: this.state.shadowOffset,
     };
-  },
+  };
 
-  renderRipple() {
+  renderRipple = () => {
     if (!this.props.withRipple) return null;
 
     return (
@@ -202,7 +201,7 @@ const MaterialButton = React.createClass({
         ]}/>
       </View>
     );
-  },
+  };
 
   render() {
     return (
@@ -217,6 +216,6 @@ const MaterialButton = React.createClass({
       </Animated.View>
     );
   }
-});
+}
 
 export default MaterialButton;

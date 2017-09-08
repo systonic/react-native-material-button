@@ -12,8 +12,8 @@ var {
   View,
 } = React;
 
-var example = React.createClass({
-  render: function() {
+class example extends React.Component {
+  render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -28,7 +28,7 @@ var example = React.createClass({
       </View>
     );
   }
-});
+}
 
 var styles = StyleSheet.create({
   container: {
