@@ -20,15 +20,15 @@ npm install --save react-native-material-button
 ```javascript
 var Button = require('react-native-material-button');
 
-var Application = React.createClass({
-  render: function() {
+class Application extends React.Component {
+  render() {
     return (
       <View>
         <Button onPress={()=>{alert('pressed!')}}/>
       </View>
     );
   }
-});
+}
 ```
 
 ### Properties
