@@ -27,6 +27,6 @@
   },
   "homepage": "https://github.com/systonic/react-native-material-button",
   "peerDependencies": {
-    "react-native": ">= 0.48.0"
+    "react-native": ">= 0.47.0"
   }
 }
