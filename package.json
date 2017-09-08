@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Recr0ns/react-native-material-button.git"
+    "url": "git+ssh://git@github.com/systonic/react-native-material-button.git"
   },
   "keywords": [
     "react-native",
@@ -19,16 +19,14 @@
     "material"
   ],
   "author": {
-    "name": "Eduard Tishkin",
-    "email": "recr0ns@gmail.com",
-    "url": "https://github.com/recr0ns"
+    "url": "https://github.com/systonic"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/recr0ns/react-native-material-button/issues"
+    "url": "https://github.com/systonic/react-native-material-button/issues"
   },
-  "homepage": "https://github.com/recr0ns/react-native-material-button",
+  "homepage": "https://github.com/systonic/react-native-material-button",
   "peerDependencies": {
-    "react-native": ">= 0.25.0"
+    "react-native": ">= 0.48.0"
   }
 }
